@@ -43,7 +43,31 @@ const ex4today = moment();
 const ex4diffDays = moment("2025-12-25").diff(ex4today, "days");
 console.log(ex4diffDays);
 
-const s4 = moment();
-const e4 = moment("2025-12-25");
-const mb = e4.diff(s4, "days");
+const s = moment();
+const e = moment("2025-12-25");
+const mb = e.diff(s, "days");
 console.log(mb);
+
+// 요일
+const s2 = moment();
+console.log(`요일: ${s2.format("d")}`); // 3
+console.log(`요일: ${s2.format("dd")}`); // We
+console.log(`요일: ${s2.format("ddd")}`); // Wed
+console.log(`요일: ${s2.format("dddd")}`); // Wednesday
+
+// 요일 한글로 출력하기
+require("moment/locale/ko"); // 한국어 로케일 불러오기
+moment.locale("ko"); // 한국어 로케일 설정
+const s3 = moment();
+console.log(`요일: ${s3.format("d")}`);
+console.log(`요일: ${s3.format("dd")}`);
+console.log(`요일: ${s3.format("ddd")}`);
+console.log(`요일: ${s3.format("dddd")}`);
+
+// 문제 5. 올해 크리스마스는 무슨 요일일까요?
+console.log(moment("2025-12-25").format("dddd"));
+const ex5 = moment("2025-12-25");
+console.log(`올해 크리스마스는 ${ex5.format("dddd")}입니다.`);
+
+// 문제 6. 본인의 태어난 날의 요일을 출력해보시오.
+console.log(moment("1998-03-10").format("dddd"));
