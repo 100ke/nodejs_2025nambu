@@ -13,8 +13,7 @@ const createPost = async (req, res) => {
       name: "백혜윤",
       email: "a@example.com",
       password: "1234512",
-      // filename
-      fileName: filename,
+      // fileName: filename,
     });
   }
 
