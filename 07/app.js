@@ -1,5 +1,7 @@
 const path = require("path");
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
 const noteRouter = require("./routes/notes");
 const todoRouter = require("./routes/todos");
 const postRouter = require("./routes/posts");
@@ -16,6 +18,12 @@ app.use(express.json()); // json 파싱 미들웨어
 app.use(express.urlencoded({ extended: true }));
 const uploadDir = `public/uploads`;
 app.use(`/downloads`, express.static(path.join(__dirname, uploadDir)));
+
+// Swagger 설정
+// swagger.yaml 파일에서 문서 로딩
+const swaggerDocument = YAML.load(path.join(__dirname, "swagger.yaml"));
+// http://localhost:3000/api-docs 경로로 Swagger UI를 제공
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // notes url로 들어오는 주소는 전부 noteRouter로 처리
 app.use("/notes", noteRouter);
