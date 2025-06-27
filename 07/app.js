@@ -4,6 +4,7 @@ const noteRouter = require("./routes/notes");
 const todoRouter = require("./routes/todos");
 const postRouter = require("./routes/posts");
 const userRouter = require("./routes/users");
+const authRouter = require("./routes/auth");
 const models = require("./models");
 
 const app = express();
@@ -18,6 +19,7 @@ app.use("/notes", noteRouter);
 app.use("/todos", todoRouter);
 app.use("/posts", postRouter);
 app.use("/users", userRouter);
+app.use("/auth", authRouter);
 
 // 모든 라우터의 최하단에 404 페이지 처리
 app.use((req, res) => {
