@@ -7,8 +7,8 @@ const logger = winston.createLogger({
     winston.format.simple()
   ),
   transports: [
-    new winston.transport.Console(),
-    new winston.transport.defaultMaxListeners({ filename: "app.log" }),
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: "app.log" }),
   ],
 });
 

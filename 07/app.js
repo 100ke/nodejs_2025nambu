@@ -6,10 +6,13 @@ const postRouter = require("./routes/posts");
 const userRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const models = require("./models");
+const { logger, logging } = require("./middlewares/logger");
 
 const app = express();
 
-app.use(express.json());
+// 미들웨어 설정
+app.use(logging); // 로깅 미들웨어
+app.use(express.json()); // json 파싱 미들웨어
 app.use(express.urlencoded({ extended: true }));
 const uploadDir = `public/uploads`;
 app.use(`/downloads`, express.static(path.join(__dirname, uploadDir)));
