@@ -5,17 +5,17 @@ const createPost = async (req, res) => {
   let filename = req.file ? req.file.filename : null;
   filename = `/downloads/${filename}`;
 
-  let user = await models.User.findOne({
-    where: { email: "a@example.com" },
-  });
-  if (!user) {
-    user = await models.User.create({
-      name: "백혜윤",
-      email: "a@example.com",
-      password: "1234512",
-      // fileName: filename,
-    });
-  }
+  // let user = await models.User.findOne({
+  //   where: { email: "a@example.com" },
+  // });
+  // if (!user) {
+  //   user = await models.User.create({
+  //     name: "백혜윤",
+  //     email: "a@example.com",
+  //     password: "1234512",
+  //     // fileName: filename,
+  //   });
+  // }
 
   let attachments = [];
   if (req.file) {
@@ -41,7 +41,8 @@ const createPost = async (req, res) => {
   const post = await models.Post.create({
     title: title,
     content: content,
-    authorId: user.id,
+    // authorId: user.id,
+    authorId: req.user.id,
     // fileName: filename,
     attachments: attachments,
   });
