@@ -49,38 +49,39 @@ const createPost = async (req, res) => {
   res.status(201).json({ message: "ok", data: post });
 };
 
-const getAllPosts = async (req, res) => {
-  const posts = await models.Post.findAll();
-  res.status(200).json({ message: "ok", data: posts });
-};
+// const getAllPosts = async (req, res) => {
+//   const posts = await models.Post.findAll();
+//   res.status(200).json({ message: "ok", data: posts });
+// };
 
 // 페이지네이션 적용한 게시글 목록 조회
-// const getAllPosts = async (req, res) => {
-//   const page = parseInt(req.query.page) || 1;
-//   const pageSize = parseInt(req.query.pageSize) || 10; // limit
-//   const offset = (page - 1) * pageSize;
+const getAllPosts = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.pageSize) || 10; // limit
+  const offset = (page - 1) * pageSize;
 
-//   const totalPosts = await models.Post.count();
+  const totalPosts = await models.Post.count();
 
-//   const posts = await models.Post.findAll({
-//     limit: pageSize,
-//     offset: offset,
-//   });
-//   const totalPages = Math.ceil(totalPosts / pageSize);
+  const posts = await models.Post.findAll({
+    limit: pageSize,
+    offset: offset,
+    include: [{ model: models.User, as: "author" }],
+  });
+  const totalPages = Math.ceil(totalPosts / pageSize);
 
-//   res.status(200).json({
-//     message: "ok",
-//     data: {
-//       posts: posts,
-//       pagination: {
-//         currentPage: page,
-//         pageSize,
-//         totalItems: totalPosts,
-//         totalPages,
-//       },
-//     },
-//   });
-// };
+  res.status(200).json({
+    message: "ok",
+    data: {
+      posts: posts,
+      pagination: {
+        currentPage: page,
+        pageSize,
+        totalItems: totalPosts,
+        totalPages,
+      },
+    },
+  });
+};
 
 const getPost = async (req, res) => {
   const id = req.params.id;
